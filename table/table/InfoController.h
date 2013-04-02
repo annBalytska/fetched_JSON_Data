@@ -9,8 +9,9 @@
 #import <UIKit/UIKit.h>
 #import "TableViewCell.h"
 #import "ViewController.h"
+#import "DiscountObject.h"
 
 @interface InfoController : UITableViewController
 @property int number;
-@property (retain) NSArray *infoArray;
+@property (retain) NSMutableArray *infoArray;
 @end

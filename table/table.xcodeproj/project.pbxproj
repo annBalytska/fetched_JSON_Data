@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		02190F5C17097D36008C0423 /* InfoController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02190F5B17097D36008C0423 /* InfoController.m */; };
 		02190F5F1709BE15008C0423 /* TableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 02190F5E1709BE15008C0423 /* TableViewCell.m */; };
+		025D9858170ACC3400257415 /* DiscountObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 025D9857170ACC3400257415 /* DiscountObject.m */; };
 		02E78ED91705A6B400046ECF /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02E78ED81705A6B400046ECF /* UIKit.framework */; };
 		02E78EDB1705A6B400046ECF /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02E78EDA1705A6B400046ECF /* Foundation.framework */; };
 		02E78EDD1705A6B400046ECF /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02E78EDC1705A6B400046ECF /* CoreGraphics.framework */; };
@@ -27,6 +28,8 @@
 		02190F5B17097D36008C0423 /* InfoController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InfoController.m; sourceTree = "<group>"; };
 		02190F5D1709BE15008C0423 /* TableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableViewCell.h; sourceTree = "<group>"; };
 		02190F5E1709BE15008C0423 /* TableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TableViewCell.m; sourceTree = "<group>"; };
+		025D9856170ACC3400257415 /* DiscountObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DiscountObject.h; sourceTree = "<group>"; };
+		025D9857170ACC3400257415 /* DiscountObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DiscountObject.m; sourceTree = "<group>"; };
 		02E78ED51705A6B400046ECF /* table.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = table.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		02E78ED81705A6B400046ECF /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		02E78EDA1705A6B400046ECF /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -113,6 +116,8 @@
 				02E78EEE1705A6B400046ECF /* Default-568h@2x.png */,
 				02190F5D1709BE15008C0423 /* TableViewCell.h */,
 				02190F5E1709BE15008C0423 /* TableViewCell.m */,
+				025D9856170ACC3400257415 /* DiscountObject.h */,
+				025D9857170ACC3400257415 /* DiscountObject.m */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -188,6 +193,7 @@
 				02E78EF51705A6B400046ECF /* ViewController.m in Sources */,
 				02190F5C17097D36008C0423 /* InfoController.m in Sources */,
 				02190F5F1709BE15008C0423 /* TableViewCell.m in Sources */,
+				025D9858170ACC3400257415 /* DiscountObject.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

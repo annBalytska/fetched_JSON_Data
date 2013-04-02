@@ -13,7 +13,7 @@
 
 @interface ViewController ()
 @property NSDictionary* json;
-@property NSArray* arr;
+@property NSMutableArray *data;
 @end
 
 @implementation ViewController
@@ -27,6 +27,7 @@
                                withObject:data waitUntilDone:YES];
     });
     self.title=@"SoftServe Discount";
+    _data=[[NSMutableArray alloc]init];
  }
 
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
@@ -40,15 +41,31 @@
                           options:kNilOptions
                           error:&error];
     
-    _arr = [[NSArray alloc]initWithArray:[_json objectForKey:@"list"]];
-    //_arr = [[_json objectForKey:@"list"] retain];
-    
-    
-    NSMutableArray *indexes = [[NSMutableArray alloc] init];
-    
-    for (int i=0;i < [_arr count]; i++) {
+    for (int i=0;i<[[_json objectForKey:@"list"] count];i++) {
+        DiscountObject *object=[[[DiscountObject alloc]init]autorelease];
+        object.name=[[[_json objectForKey:@"list"] objectAtIndex:i]valueForKey:@"name"];
+        object.address=[[[_json objectForKey:@"list"] objectAtIndex:i]valueForKey:@"address"];
+        object.pulse=[[[_json objectForKey:@"list"] objectAtIndex:i]valueForKey:@"pulse"];
+      
+        id from,to;
+        from=[[[[_json objectForKey:@"list"] objectAtIndex:i]objectForKey:@"discount"]objectForKey:@"from"];
+        to=[[[[_json objectForKey:@"list"] objectAtIndex:i]objectForKey:@"discount"]objectForKey:@"to"];
+        
+        
+        if ([from isEqual:to])
+            object.discount=[NSString stringWithFormat:@"%@%%",from];
+        else
+            object.discount=[NSString stringWithFormat:@"from: %@%% to: %@%%",from,to];
+ 
+        
+//        NSLog(@"%@ %@",from,to);
+                
+        [_data addObject:object];
+    }
+
+    NSMutableArray *indexes = [[[NSMutableArray alloc] init]autorelease];
+    for (int i=0;i < [_data count]; i++) {
         [indexes addObject:[NSIndexPath indexPathForRow:i inSection:0]];
-   //   NSLog(@"%d %@",i, [[_arr objectAtIndex:i]objectForKey:@"name"]);
     }
     
     [self.tableView beginUpdates];
@@ -65,7 +82,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSString* theString=[[_arr objectAtIndex:indexPath.row]objectForKey:@"name"];
+    NSString *theString = [[_data objectAtIndex:indexPath.row] name];
     CGSize textSize = [theString sizeWithFont:[UIFont systemFontOfSize:14.0]
                             constrainedToSize:CGSizeMake(280.0f, CGFLOAT_MAX)
                                 lineBreakMode:NSLineBreakByClipping];
@@ -77,11 +94,11 @@
     NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
     InfoController *info = segue.destinationViewController;
     info.number = indexPath.row;
-    info.infoArray=_arr;
+    info.infoArray=_data;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-        return [_arr count];
+        return [_data count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -93,7 +110,7 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:simpleTableIdentifier];
     }
     cell.textLabel.numberOfLines=0;
-    cell.textLabel.text=[[_arr objectAtIndex:indexPath.row]objectForKey:@"name"];
+    cell.textLabel.text=[[_data objectAtIndex:indexPath.row] name];
     return cell;
 }
 
@@ -105,7 +122,7 @@
 
 - (void)dealloc {
     [_tableView release];
-    [_arr release];
+    [_data release];
     [super dealloc];
 }
 @end

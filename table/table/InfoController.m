@@ -9,7 +9,6 @@
 #import "InfoController.h"
 
 @interface InfoController ()
-
 @end
 
 @implementation InfoController
@@ -29,7 +28,7 @@
     CGRect frame = CGRectMake(0, 0, 400, 44);
     UILabel *label = [[[UILabel alloc] initWithFrame:frame] autorelease];
     label.font = [UIFont fontWithName:@"Helvetica" size:14];
-    label.text=[[_infoArray objectAtIndex:_number]objectForKey:@"name"];
+    label.text=[[_infoArray objectAtIndex:_number] name];
     label.numberOfLines=0;
     label.backgroundColor = [UIColor clearColor];
     label.textColor = [UIColor whiteColor];
@@ -69,11 +68,12 @@
     static NSString *CellIdentifier = @"Cell";
     TableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     id text;
+    DiscountObject *obj=[_infoArray objectAtIndex:_number];
     cell.info.numberOfLines=0;
     if (indexPath.row==0){
-        text= [[_infoArray objectAtIndex:_number]objectForKey:@"address"];
-        if (![text isKindOfClass:[NSNull class]])  {
-            cell.info.text = [[_infoArray objectAtIndex:_number]objectForKey:@"address"];
+        text= [[_infoArray objectAtIndex:_number] address];
+        if (![text isKindOfClass:[NSNull class]]) {
+            cell.info.text=[obj address];
             if([cell.info.text length]>0)
                 cell.category.text=@"address";
             else
@@ -85,9 +85,9 @@
         }
     }
     else if (indexPath.row==1) {
-        text= [[_infoArray objectAtIndex:_number]objectForKey:@"pulse"];
+        text= [[_infoArray objectAtIndex:_number]pulse];
         if (![text isKindOfClass:[NSNull class]])  {
-            cell.info.text=[[_infoArray objectAtIndex:_number]objectForKey:@"pulse"];
+            cell.info.text=[obj pulse];
             if([cell.info.text length]>0)
                 cell.category.text=@"pulse";
             else
@@ -98,15 +98,21 @@
             cell.info.text=@"";
         }
     }
-    else {
-        if ([[[_infoArray objectAtIndex:_number]objectForKey:@"discount"]objectForKey:@"from"]==[[[_infoArray objectAtIndex:_number]objectForKey:@"discount"]objectForKey:@"from"]) {
-             cell.info.text=[NSString stringWithFormat:@"%@",[[[_infoArray objectAtIndex:_number]objectForKey:@"discount"]objectForKey:@"from"] ];
+    else {        
+        text= [[_infoArray objectAtIndex:_number]discount];
+        if (![text isKindOfClass:[NSNull class]])  {
+            cell.info.text=[obj discount];
+            if([cell.info.text length]>0)
+                cell.category.text=@"discount";
+            else
+                cell.category.text=@"";
         }
-        else
-            cell.info.text=[NSString stringWithFormat:@"from: %@ to: %@",[[[_infoArray objectAtIndex:_number]objectForKey:@"discount"]objectForKey:@"from"],
-                                                                                        [[[_infoArray objectAtIndex:_number]objectForKey:@"discount"]objectForKey:@"to"]];
-        NSString *string =[NSString stringWithString:cell.info.text];
-        if([cell.info.text length]>0 && ([string rangeOfString:@"null"].location == NSNotFound))
+        else {
+            cell.category.text=@"";
+            cell.info.text=@"";
+        }
+
+        if([cell.info.text length]>0 && ([cell.info.text rangeOfString:@"null"].location == NSNotFound))
             cell.category.text=@"discount";
         else {
             cell.category.text=@"";
@@ -122,11 +128,11 @@
 {   
     id theString;
     if (indexPath.row==0)
-        theString=[[_infoArray objectAtIndex:_number]objectForKey:@"address"];
+        theString=[[_infoArray objectAtIndex:_number]address];
     else if (indexPath.row==1)
-        theString=[[_infoArray objectAtIndex:_number]objectForKey:@"pulse"];
+        theString=[[_infoArray objectAtIndex:_number]pulse];
     else
-        theString=[NSString stringWithFormat:@"%@",[[[_infoArray objectAtIndex:_number]objectForKey:@"discount"]objectForKey:@"from"] ];
+        theString=[[_infoArray objectAtIndex:_number]discount];
     CGSize textSize;
     if (![theString isKindOfClass:[NSNull class]]) 
          textSize= [theString sizeWithFont:[UIFont systemFontOfSize:13.0]
